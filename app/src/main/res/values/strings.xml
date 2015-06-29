@@ -47,6 +47,10 @@
     <string name="buttonJoinCommunity">Join this Community</string>
     <string name="title_activity_main">MainActivity</string>
 
+    <string name="userName">John Doe</string>
+    <string name="userCommunity">My Current Community</string>
+
+
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
