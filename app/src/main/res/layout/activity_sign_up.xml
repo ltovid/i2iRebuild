@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.support.android.i2irebuild.SignUpActivity">
+
+    <include
+        android:id="@+id/toolbarSignUp"
+        layout="@layout/toolbar_sign_up" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarSignUp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dip" />
+
+        <TextView
+            android:id="@+id/separator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sign_in_button"
+            android:gravity="center"
+            android:text="@string/separator" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/separator"
+            >
+            <TextView
+                android:id="@+id/signUpHeader"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/email_signup"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:id="@+id/NameWrapper"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_below="@id/signUpHeader">
+
+                <EditText
+                    android:id="@+id/signUpName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/TopMargin16"
+                    android:hint="@string/first_name"
+                    android:inputType="textPersonName"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:id="@+id/signUp_Lastname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/TopMargin16"
+                    android:hint="@string/last_name"
+                    android:inputType="textPersonName"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/signUp_email_address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/NameWrapper"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:hint="@string/email_hint"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/signIn_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/signUp_email_address"
+                android:layout_marginTop="@dimen/TopMargin16"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+
+                />
+
+            <Button
+                android:id="@+id/signInActiviy"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/abc_action_button_min_height_material"
+                android:layout_below="@id/signIn_password"
+                android:layout_marginTop="@dimen/TopMargin32"
+                android:text="@string/button_next"
+                android:onClick="JoinCommunity"/>
+
+
+
+            <TextView
+                android:id="@+id/agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/TopMargin16"
+                android:text="@string/agreement"
+
+                android:textSize="@dimen/abc_text_size_small_material"
+                android:visibility="visible"
+                android:layout_below="@id/signInActiviy"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

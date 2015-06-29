@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="yearList">
+        <item>@string/yr2001</item>
+        <item>@string/yr2002</item>
+        <item>@string/yr2003</item>
+        <item>@string/yr2004</item>
+    </string-array>
+</resources>

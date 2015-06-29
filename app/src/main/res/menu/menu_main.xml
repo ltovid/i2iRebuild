@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.support.android.i2irebuild.MainActivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="200"
+        android:title="@string/search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/action_user"
+        android:orderInCategory="300"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_action_person"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_invite"
+        android:orderInCategory="100"
+        android:title="@string/invite"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="200"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sign_out_button"
+        android:orderInCategory="600"
+        android:title="@string/sign_out"
+        app:showAsAction="never"
+        />
+</menu>

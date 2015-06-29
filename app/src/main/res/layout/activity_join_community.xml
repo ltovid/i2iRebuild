@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.support.android.i2irebuild.JoinCommunityActivity">
+
+
+    <include
+        android:id="@+id/toolbarSignJoinCommunity"
+        layout="@layout/toolbar_join_community" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarSignJoinCommunity"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/TopMargin16"
+            android:text="@string/agreement"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:visibility="visible" />
+
+        <!--   <Spinner
+               android:id="@+id/yearSelect"
+               android:layout_height="wrap_content"
+               android:hint="@string/years"
+               android:layout_width="fill_parent"
+               android:entries="@array/yearList"
+               android:layout_below="@+id/agreement"
+               android:layout_marginTop="@dimen/TopMargin16">
+           </Spinner>
+
+           <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+               android:id="@+id/autocomplete_years"
+               android:hint="@string/years"
+               android:layout_width="fill_parent"
+               android:entries="@array/cities_array"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/yearSelect"
+               android:layout_marginTop="@dimen/TopMargin16"/>-->
+
+
+        <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/autocomplete_cities"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/agreement"
+            android:layout_marginTop="@dimen/TopMargin16"
+            android:hint="@string/cities" />
+
+        <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/autocomplete_subCommunities"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autocomplete_cities"
+            android:layout_marginTop="@dimen/TopMargin16"
+            android:hint="@string/subCommunity" />
+
+        <LinearLayout
+            android:id="@+id/AddrWrapper"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/autocomplete_subCommunities">
+
+            <EditText
+                android:id="@+id/addrNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/TopMargin16"
+                android:layout_weight=".25"
+                android:hint="@string/addrNum"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/addrLn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/TopMargin16"
+                android:layout_weight=".75"
+                android:hint="@string/addrLn1"
+                android:inputType="text" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/addrLn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/TopMargin16"
+            android:hint="@string/addrLn2"
+            android:inputType="text"
+            android:layout_below="@id/AddrWrapper"
+           />
+
+        <Button
+            android:id="@+id/signInActiviy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/abc_action_button_min_height_material"
+            android:layout_below="@id/addrLn2"
+            android:layout_marginTop="@dimen/TopMargin32"
+            android:text="@string/button_next"
+            android:onClick="gotoMain"/>
+
+
+    </RelativeLayout>
+</RelativeLayout>

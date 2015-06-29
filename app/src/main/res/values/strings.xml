@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">i2iRebuild</string>
+    <string name="title_activity_intro">IntroActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="button_get_started">Get Started</string>
+    <string name="title_activity_start">StartActivity</string>
+
+    <string name="button_sign_up">Sign me up</string>
+    <string name="button_sign_in">Already a member</string>
+    <string name="button_signIn">Sign In</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="button_next">Next</string>
+
+
+    <string name="email_hint">Email Address</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="password_hint">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="separator">or</string>
+    <string name="email_signup">Sign up with email</string>
+    <string name="agreement">By tapping Sign up, you agree to our Membership Agreement and that you have read our Terms and Conditions, and Privacy Policy</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_join_community">JoinCommunityActivity</string>
+
+
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="invite">Invite</string>
+
+    <!--Year Samle -->
+    <string name="years">Select Year</string>
+    <string name="yr2001">2001</string>
+    <string name="yr2002">2002</string>
+    <string name="yr2003">2003</string>
+    <string name="yr2004">2004</string>
+
+    <string name="cities">Your City</string>
+    <string name="subCommunity">Sub Community</string>
+
+    <string name="addrLn1">Street Name</string>
+    <string name="addrLn2">Address Line 2</string>
+    <string name="addrNum">House#</string>
+    <string name="buttonJoinCommunity">Join this Community</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+</resources>
