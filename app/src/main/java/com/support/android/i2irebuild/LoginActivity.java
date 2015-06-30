@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -40,32 +41,8 @@ public class LoginActivity extends AppCompatActivity implements
     /* Should we automatically resolve ConnectionResults when possible? */
     private boolean mShouldResolve = false;
 
-    /*@Override
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
 
-        // Build GoogleApiClient with access to basic profile
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Plus.API)
-                .addScope(new Scope(Scopes.PROFILE))
-                .build();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mGoogleApiClient.disconnect();
-    }*/
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -95,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements
         if (v.getId() == R.id.sign_out_button) {
             onSignOutClicked();
         }
+
     }
 
     private void onSignInClicked() {
