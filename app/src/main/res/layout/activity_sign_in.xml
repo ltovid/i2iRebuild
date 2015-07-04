@@ -62,5 +62,6 @@
             android:onClick="signIn"
             android:text="@string/button_signIn"
             />
+
     </RelativeLayout>
 </RelativeLayout>
