@@ -212,6 +212,7 @@ public class ServerRequests {
                     }
 
                     Log.v("RESPONSE", response);
+
                     JSONObject jObject = new JSONObject(response);
 
                     if (jObject.length() != 0){
