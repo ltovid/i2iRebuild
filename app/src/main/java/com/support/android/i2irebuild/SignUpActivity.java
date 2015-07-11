@@ -19,10 +19,8 @@ import com.google.android.gms.plus.Plus;
 public class SignUpActivity extends LoginActivity {
     Toolbar mToolbar;
     EditText etFName, etLName, etUsername, etPassword;
+
     UserLocalStore userLocalStore;
-
-    //this is the button to sign-in with email and password
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +99,13 @@ public class SignUpActivity extends LoginActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private void registerUser(final User user) {
         ServerRequests serverRequest = new ServerRequests(this);
         serverRequest.storeUserDataInBackground(user, new GetUserCallback() {
             @Override
             public void done(User returnedUser) {
                 authenticate(user);
-
             }
         });
     }
@@ -138,6 +136,5 @@ public class SignUpActivity extends LoginActivity {
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, JoinCommunityActivity.class));
     }
-
 
 }

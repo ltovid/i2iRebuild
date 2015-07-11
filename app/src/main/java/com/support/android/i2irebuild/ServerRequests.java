@@ -62,8 +62,8 @@ public class ServerRequests {
             this.userCallBack = userCallBack;
         }
 
-
-        @Override
+        
+		@Override
         protected Void doInBackground(Void... params) {
             Log.v("IN doInBackGround", "1");
             try {
@@ -94,6 +94,7 @@ public class ServerRequests {
                 Log.v("REGISTER.PHP query", query);
 
                OutputStream os = conn.getOutputStream();
+
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
                 writer.write(query);
@@ -141,8 +142,7 @@ public class ServerRequests {
 
             return null;
         }//END OF Void doInBackground(Void... params)
-
-
+		
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
