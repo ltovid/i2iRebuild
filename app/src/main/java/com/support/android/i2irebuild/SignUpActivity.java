@@ -1,5 +1,6 @@
 package com.support.android.i2irebuild;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,8 +20,7 @@ public class SignUpActivity extends LoginActivity {
     Toolbar mToolbar;
     EditText etFName, etLName, etUsername, etPassword;
 
-    //this is the button to sign-in with email and password
-
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,8 @@ public class SignUpActivity extends LoginActivity {
                 Toast.makeText(SignUpActivity.this, "Nav Pressed", Toast.LENGTH_SHORT).show();
             }
         });
+
+        userLocalStore = new UserLocalStore(this);
 
     }
 
@@ -97,14 +99,42 @@ public class SignUpActivity extends LoginActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void registerUser(User user) {
+
+    private void registerUser(final User user) {
         ServerRequests serverRequest = new ServerRequests(this);
         serverRequest.storeUserDataInBackground(user, new GetUserCallback() {
             @Override
             public void done(User returnedUser) {
-                Intent joinGroup = new Intent(SignUpActivity.this, com.support.android.i2irebuild.JoinCommunityActivity.class);
-                startActivity(joinGroup);
+                authenticate(user);
             }
         });
     }
+
+    private void authenticate(User user) {
+        ServerRequests serverRequest = new ServerRequests(this);
+        serverRequest.fetchUserDataAsyncTask(user, new GetUserCallback() {
+            @Override
+            public void done(User returnedUser) {
+                if (returnedUser == null) {
+                    showErrorMessage();
+                } else {
+                    logUserIn(returnedUser);
+                }
+            }
+        });
+    }
+
+    private void showErrorMessage() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SignUpActivity.this);
+        dialogBuilder.setMessage("Registration Failed");
+        dialogBuilder.setPositiveButton("Ok", null);
+        dialogBuilder.show();
+    }
+
+    private void logUserIn(User returnedUser) {
+        userLocalStore.storeUserData(returnedUser);
+        userLocalStore.setUserLoggedIn(true);
+        startActivity(new Intent(this, JoinCommunityActivity.class));
+    }
+
 }

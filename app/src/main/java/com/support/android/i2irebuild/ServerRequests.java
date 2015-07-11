@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -15,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -25,13 +27,14 @@ on 29/06/2015*/
 public class ServerRequests {
     ProgressDialog progressDialog;
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
-    public static final String SERVER_ADDRESS = "http://lookout-tt.com/";
+    public static final String SERVER_ADDRESS = "www.lookout-tt.com";
 
     public ServerRequests(Context context) {
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Processing...");
         progressDialog.setMessage("Please wait...");
+
     }
 
     public void storeUserDataInBackground(User user,
@@ -59,29 +62,39 @@ public class ServerRequests {
             this.userCallBack = userCallBack;
         }
 
-        @Override
+        
+		@Override
         protected Void doInBackground(Void... params) {
-
+            Log.v("IN doInBackGround", "1");
             try {
-                URL url = new URL(SERVER_ADDRESS);
 
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("http")
+                        .authority(SERVER_ADDRESS)
+                        .appendPath("Register.php")
+                        .appendQueryParameter("firstName", user.firstName)
+                        .appendQueryParameter("lastName", user.lastName)
+                        .appendQueryParameter("username", user.username)
+                        .appendQueryParameter("password", user.password)
+                        .build();
+                Log.v("REGISTER.PHP addr", builder.toString());
+
+                String query = builder.toString();
+
+                URL url = new URL(builder.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(CONNECTION_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod("GET");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
 
-                Uri.Builder builder = new Uri.Builder()
-                        .appendPath("Register.php")
-                        .appendQueryParameter("user", user.firstName)
-                        .appendQueryParameter("age", user.lastName)
-                        .appendQueryParameter("username", user.username)
-                        .appendQueryParameter("password", user.password);
 
-                String query = builder.build().getEncodedQuery();
+                Log.v("REGISTER.PHP query", query);
 
-                OutputStream os = conn.getOutputStream();
+               OutputStream os = conn.getOutputStream();
+
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
                 writer.write(query);
@@ -90,23 +103,46 @@ public class ServerRequests {
                 os.close();
 
                 conn.connect();
+
+                int responseCode=conn.getResponseCode();
+
+                String response="";
+                String message;
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line=br.readLine()) != null) {
+                        response+=line;
+                    }
+
+                    Log.v("REGISTER.PHP response", response);
+
+                    JSONObject jObject = new JSONObject(response);
+
+                    if (jObject.length() != 0){
+
+                        message = jObject.getString("response_message");
+                        Log.v("REGISTER.PHP message", message);
+                    }
+                    else
+                        Log.v("FROM REGISTER.PHP", "No JSON message received");
+
+
+
+                }
+                else {
+                    response = responseCode+"";
+                    Log.v("httpError", response);
+                }
             }
             catch(Exception e) {
                 e.printStackTrace();
+                Log.v("ERRORS", e.toString());
             }
 
             return null;
-        }
-
-/*        private HttpParams getHttpRequestParams() {
-            HttpParams httpRequestParams = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpRequestParams,
-                    CONNECTION_TIMEOUT);
-            HttpConnectionParams.setSoTimeout(httpRequestParams,
-                    CONNECTION_TIMEOUT);
-            return httpRequestParams;
-        }*/
-
+        }//END OF Void doInBackground(Void... params)
+		
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
@@ -130,20 +166,28 @@ public class ServerRequests {
             User returnedUser = null;
 
             try {
-                URL url = new URL(SERVER_ADDRESS);
+                //-------------------------------------------------------
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("http")
+                        .authority(SERVER_ADDRESS)
+                        .appendPath("FetchUserData.php")
+                        .appendQueryParameter("username", user.username) //search by username
+                        .build();
+                Log.v("FetchUserData.php addr", builder.toString());
 
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                String query = builder.toString();
+
+                URL url = new URL(builder.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(CONNECTION_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod("GET");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
 
-                Uri.Builder builder = new Uri.Builder()
-                        .appendPath("FetchUserData.php")
-                        .appendQueryParameter("username", user.username); //search by username
 
-                String query = builder.build().getEncodedQuery();
+                Log.v("FetchUserData.php query", query);
 
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
@@ -157,6 +201,8 @@ public class ServerRequests {
 
                 int responseCode=conn.getResponseCode();
 
+                //-------------------------------------------------------
+
                 String response="";
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
                     String line;
@@ -164,6 +210,8 @@ public class ServerRequests {
                     while ((line=br.readLine()) != null) {
                         response+=line;
                     }
+
+                    Log.v("RESPONSE", response);
 
                     JSONObject jObject = new JSONObject(response);
 
@@ -173,9 +221,14 @@ public class ServerRequests {
                         String fName = jObject.getString("firstName");
                         String lName = jObject.getString("lastName");
 
-                        if (BCrypt.checkpw(user.password, pword)) //compare plain text password with one retrieved from DB
+                        Log.v("returned pword", pword);
+                        Log.v("stored pword", user.password);
+
+                        if (BCrypt.checkpw(user.password, pword)) { //compare plain text password (user.password) with one retrieved from DB
+
                             returnedUser = new User(fName, lName, user.username,
                                     pword); //create new User if plainText matches hashed password retrieved from DB
+                        }
                         else
                             returnedUser=null; //return null if hashed password retrieved from DB does not match plain text password stored in UserStore
 
